@@ -1,0 +1,51 @@
+.create {
+    position: absolute;
+    display: flex;
+    width: $width - 32px;
+    height: 50px;
+    bottom: 3%;
+
+    &__input {
+        position: relative;
+        width: 100%;
+        padding: 10px 16px;
+        border-radius: 15px;
+        border: 1px solid #fff;
+        &:focus {
+            border: 2px solid $mainColor;
+        }
+        &:focus + .create__input_length {
+            position: absolute;
+            top: 0%;
+            z-index: 10;
+            color: $mainColor;
+            background: $secondColor;
+        }
+    }
+
+    &__input_length {
+        cursor: text;
+        position: absolute;
+        color: lightgray;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 16px;
+        user-select: none;
+        transition: top .35s ease-in-out, background .1s ease-in-out;
+        padding: 0 3px;
+        border-radius: 15px;
+        font-size: 14px;
+    }
+
+    &__but {
+        position: absolute;
+        width: 50px;
+        right: 0%;
+        height: 100%;
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+        background: $mainColor;
+        color: #fff;
+        font-size: 30px;
+    }
+}

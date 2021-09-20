@@ -1,0 +1,75 @@
+.tasks {
+    width: $width;
+    height: 80%;
+    background: $secondColor;
+    color: #fff;
+    border-radius: 25px;
+    padding: 30px 16px;
+    letter-spacing: 1px;
+    position: relative;
+
+    &__title {
+        position: relative;
+        text-align: center;
+        margin: 0 0 20px;
+
+        &::after {
+            content: '';
+            width: 80px;
+            height: 3px;
+            background: $mainColor;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    &__list {
+        overflow: auto;
+        height: 60vh;
+    }
+    
+    &__item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #fff;
+        color: #000;
+        border-radius: 25px;
+        padding: 10px 16px;
+        line-height: 120%;
+
+        &:not(:first-child), &:not(:last-child) {
+            margin: 10px 0;
+        }
+    }
+            
+    &__text .text__item {
+        word-wrap: break-word;
+        width: 400px;
+    }
+
+    &__control {
+        display: flex;
+    }
+
+    &_but {
+        cursor: pointer;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+        color: #fff;
+        background: $mainColor;  
+    }
+
+    &__complete {
+        background-color: $green;
+        margin: 0 6px 0 0;
+    }
+
+    &__delete {
+        background-color: $red;
+    }
+}
