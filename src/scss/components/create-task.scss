@@ -36,6 +36,15 @@
         padding: 0 3px;
         border-radius: 15px;
         font-size: 14px;
+        z-index: 0;
+        background: none;
+
+        &-null {
+            top: 0%;
+            z-index: 10;
+            color: #0CAADC;
+            background: #001021;
+        }
     }
 
     &__but {
