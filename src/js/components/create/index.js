@@ -1,8 +1,12 @@
-import {updateInput, addTasktoLocalStorage, createTask} from '../functions';
+import getTasks from '../getTasks';
+import {updateInput, addTasktoLocalStorage, removeFunc, loadTasks} from '../functions';
 
 const create = () => {
-    document.querySelector('#createTask').addEventListener('input', () => updateInput(document));
-    document.querySelector('#createTaskBut').addEventListener('click', () => addTasktoLocalStorage(document));
+    document.getElementById('createTask').addEventListener('input', () => updateInput());
+    document.getElementById('createTaskBut').addEventListener('click', () => {
+        addTasktoLocalStorage();
+        loadTasks();
+    });
 }
 
 export default create;

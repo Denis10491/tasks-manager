@@ -1,52 +1,40 @@
+import remove from './delete';
+import getTasks from './getTasks';
+
 const updateInput = () => {
-    let input = document.querySelector('#createTask');
-    let inputLength = document.querySelector('#createTaskLength');
-    let count = input.value.length ?? 0;
-    let maxLength = 70;
+    let input = document.getElementById('createTask'),
+        inputLength = document.getElementById('createTaskLength'),
+        count = input.value.length ?? 0,
+        maxLength = 70;
 
     if (count > maxLength) {
         input.value = input.value.substr(0, maxLength);
-        count = 40;
+        count = 70;
     } 
-    if (count > 0) {
-        inputLength.style.cssText = `
-            position: absolute;
-            top: 0%;
-            z-index: 10;
-            color: #0CAADC;
-            background: #001021;
-        `;
-    }
-    else {
-        inputLength.style.cssText = `
-            position: absolute;
-            top: 50%;
-            left: 16px;
-            z-index: 0;
-            color: lightgray;
-            background: none;
-        `;
-    }
+    (count > 0) ? inputLength.classList.add('create__input_length-null') : inputLength.classList.remove('create__input_length-null');
     inputLength.innerText = `${input.value.length}/${maxLength}`;
 }
 
-const addTasktoLocalStorage = function () {
-    let input = document.querySelector('#createTask');
-    let id = new Date().toUTCString();
-    let text = input.value;
-    let item = createTask(id, text);
+const addTasktoLocalStorage = ()  => {
+    let input = document.getElementById('createTask'),
+        date = new Date().toUTCString(),
+        tasks = getTasks(),
+        id = tasks.length,
+        text = input.value,
+        item = createTask(id, text);
 
     document.querySelector('.tasks__list').append(item);
-    localStorage.setItem(id, text);
+    tasks.push({id: date, text: text});
+    localStorage.setItem('tasks', JSON.stringify(tasks));
     input.value = '';
 
-    updateInput(document);
+    updateInput();
 }
 
 const createTask = (id, text) => {
     let element = document.createElement('div');
     element.classList.add('tasks__item');
-    element.setAttribute('id', `${id}`);
+    element.setAttribute('id', id);
     element.innerHTML = `
         <div class="tasks__text">
             <p class="text__item">${text}</p>
@@ -58,4 +46,26 @@ const createTask = (id, text) => {
     return element;
 }
 
-export {updateInput, addTasktoLocalStorage, createTask}
+const removeFunc = function(current, tasks) {
+    let item = current.parentNode.parentNode,
+        newTasksList = [];
+    Object.keys(tasks).map(taskId => {
+        if (taskId != item.id) newTasksList.push(tasks[taskId]);
+    });
+    localStorage.setItem('tasks', JSON.stringify(newTasksList));
+    loadTasks();
+    remove();
+}
+
+const loadTasks = () => {
+    let tasks = getTasks(),
+        arrKeysSorted = Object.values(tasks).map(task => task).sort((a, b) => new Date(a.id) - new Date(b.id)),
+        tasksList = document.getElementById('tasksList');
+    tasksList.innerHTML = ``;
+    Object.keys(arrKeysSorted).map(key => {
+        tasksList.append(createTask(key, arrKeysSorted[key]['text']));
+    });
+    remove();
+}
+
+export {updateInput, addTasktoLocalStorage, createTask, removeFunc, loadTasks}
