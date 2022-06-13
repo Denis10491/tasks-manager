@@ -22,13 +22,14 @@ const addTasktoLocalStorage = ()  => {
         id = tasks.length,
         text = input.value,
         item = createTask(id, text);
-
-    document.querySelector('.tasks__list').append(item);
-    tasks.push({id: date, text: text});
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-    input.value = '';
-
-    updateInput();
+    
+    if (text.length > 0) {
+        document.querySelector('.tasks__list').append(item);
+        tasks.push({id: date, text: text});
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        input.value = '';
+        updateInput();
+    }
 }
 
 const createTask = (id, text) => {

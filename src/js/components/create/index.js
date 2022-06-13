@@ -3,7 +3,8 @@ import {updateInput, addTasktoLocalStorage, removeFunc, loadTasks} from '../func
 
 const create = () => {
     document.getElementById('createTask').addEventListener('input', () => updateInput());
-    document.getElementById('createTaskBut').addEventListener('click', () => {
+    document.getElementById('form-create').addEventListener('submit', () => {
+        event.preventDefault();
         addTasktoLocalStorage();
         loadTasks();
     });
